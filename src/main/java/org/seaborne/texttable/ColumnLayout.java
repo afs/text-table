@@ -18,22 +18,28 @@
 
 package org.seaborne.texttable;
 
-public class Column {
-    public static final Column DEFAULT = new Column("", Alignment.RIGHT, 1, 1) ;
+/** Formatting for a single column */ 
+public class ColumnLayout {
     
-    private String header ;
+    private static final int dftPadLeft = 1 ;
+    private static final int dftPadRight = 1 ;
+    private static CellFormatter dftCellFormatter = new CellFormatter() {};
+    public static final ColumnLayout DEFAULT = new ColumnLayout(Alignment.RIGHT, dftPadLeft, dftPadRight) ;
+
+    
     private Alignment alignment ;
+    private CellFormatter cellFormatter = new CellFormatter() {};
     private int padLeft ;
     private int padRight ;
-
-    public String getHeader() {
-        return header;
-    }
 
     public Alignment getAlignment() {
         return alignment;
     }
 
+    public CellFormatter getFormatter() {
+        return cellFormatter;
+    }
+    
     public int getPadLeft() {
         return padLeft;
     }
@@ -42,12 +48,21 @@ public class Column {
         return padRight;
     }
 
-
-    public Column(String header, Alignment alignment, int padLeft, int padRight) {
-        super();
-        this.header = header;
+    public ColumnLayout(Alignment alignment) {
+        this(alignment, dftPadLeft, dftPadRight, dftCellFormatter) ;
+    }
+    
+    public ColumnLayout(Alignment alignment, int padLeft, int padRight) {
+        this(alignment, padLeft, padRight, dftCellFormatter) ;
+    }
+    
+    public ColumnLayout(Alignment alignment, int padLeft, int padRight, CellFormatter cellFormatter) {
         this.alignment = alignment;
         this.padLeft = padLeft;
         this.padRight = padRight;
+        this.cellFormatter = cellFormatter ;
     }
+    
+    @Override
+    public String toString() { return alignment+"["+padLeft+":"+padRight+"]" ; }
 }

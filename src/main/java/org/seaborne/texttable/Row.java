@@ -23,21 +23,32 @@ import java.util.Arrays ;
 import java.util.Iterator ;
 import java.util.List ;
 
-public class TextRow implements Iterable<String>{
-    public static TextRow row(String[] data) {
-        return new TextRow(Arrays.asList(data)) ;
+/** A row of data items - numbered from one */ 
+public class Row implements Iterable<Object>{
+    public static Row row(Object[] data) {
+        return new Row(Arrays.asList(data)) ;
     }
     
-    protected final List<String> cells ; 
+    protected final List<Object> cells ; 
     
-    public TextRow(List<String> data) {
+    public Row(List<Object> data) {
         this.cells = new ArrayList<>(data) ;
     }
 
     @Override
-    public Iterator<String> iterator() {
+    public Iterator<Object> iterator() {
         return cells.iterator() ;
     }
     
+    public Object get(int rowNum) {
+        if ( rowNum < 1 || rowNum > cells.size() )
+            return null ;
+        return cells.get(rowNum-1);
+    }
+
     public int length() { return cells.size() ; }
+
+    @Override
+    public String toString() { return cells.toString() ; }
+
 }

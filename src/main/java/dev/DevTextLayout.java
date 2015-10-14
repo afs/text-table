@@ -31,78 +31,76 @@ public class DevTextLayout {
     // https://en.wikipedia.org/wiki/Box-drawing_character
     // String.length -> codepoint length
 
+    // BUG: Final column.
+    
     /*
      * Tabs.
      * "github markdown" (no bounding top/bottom)
      * Multiline text?
+     * Align by decimal point.
+     * 
+     * Table actions.
      *
-     * Layout - with and without top and bottom.
-     *   LayoutBoundary(left,sep,line,right)
-     *   LayoutData(left,sep,right)
-     *   Padding in layout not columns?
-     *   Layout -> FormatterLayout (copy)
-     *      Set widths.
-     *      Set padding.
-     *      
-     *  DataTable : 
-     *    
-     * Builders.
-     *   Columns.
-     *   Body.
-     *   Formatter + options.
-     *   
-     *   SpreadSheet style
+     *  SpreadSheet style
      *      Cols are "", A, B, C
      *      Rows are numbered.
-     * Format - produce a list of cells per row.? 
-     * widths - "add default columns."
+     *   Call formatter once (caching formatter)
      */
     
     public static void main(String ... argv) {
         /*
-         * Table table = 
-             TableBuilder.create()
-               .addColumn("h1")
-               .addColumn("h2", LEFT)
-               .addRow("foo", "bar")
-               .build() ;
-           ColumnSet colSet = ColumnSet.build()
-              .addCol("h2", LEFT)
-              
            // Modifies the table settings. 
            Layout layout =
              LayoutBuilder.create(table, BaseLayout)
                .setTablePad(1) 
                .setTablePadLeft(1)
                .setTablePadRight(1)
-               
                .setCol(1, padLeft, padRight)
                .setCol(col, padLeft, padRight, align)
                .build() ;
            TableFormattter(table, layout)    
         */
         
-        TextTable table = new TextTable() ;
-        table.addColumn("col1", Alignment.LEFT) ;
-        table.addColumn("col2", Alignment.CENTRE) ;
-        table.addColumn("col3") ;
-//        table.addColumn("col4", Alignment.CENTRE, 2, 2) ;
-
-        String [][] d = {{"column1" , "foo"}, {null, "short"}, {"x", null, "y"}, {"column2" , "abcdefghijklmnop", "baz"} } ;
+        // Define data
+        DataTable table = DataTable.create()
+            .addColumn("col1") 
+            .addColumn("col2")
+            .addColumn("col3")
+            .addDataRow("column1" , "foo")
+            .addDataRow("column2" , 123)
+            .addDataRow("column3" , "abcdefghijklmnop", "baz")
+            .build() ;
         
-        for ( String[] s : d ) {
-            table.addDataRow(TextRow.row(s)) ;
-        }
+        // Define column formatting. 
+        ColumnLayoutSet colSet = ColumnLayoutSet.create()
+            .defCol("col1", Alignment.LEFT)
+            .defCol("col2", Alignment.CENTER)
+            .defCol("col3", Alignment.RIGHT)
+            .build() ;
+        // Combin into a Layout.
+        Layout layout = Layout.create(Layout.PLAIN, colSet) ;
         
-        TextTableFormatter.output(table);
+        System.out.println(table) ;
+        System.out.println() ;
         
-        TextTableFormatter.output(table, Layout.MYSQL) ;
+        DataTableFormatter.output(table, layout);
+        DataTableFormatter.output(table, Layout.PLAIN2);
         
-        TextTableFormatter.output(table, Layout.COMPACT) ;
+        System.exit(0) ;
+        System.out.println() ;
+        DataTableFormatter.output(table);   // Default layout
         
-//        TextTableFormatter.output(table, Layout.PLAIN);
-//        TextTableFormatter.output(table, Layout.PLAIN2) ;
+//        System.out.println("**") ;
+//        TextTableFormatter.output(table, Layout.MYSQL) ;
+//        System.out.println("**") ;
+//        TextTableFormatter.output(table, Layout.COMPACT) ;
+        
+        System.out.println("**") ;
+        DataTableFormatter.output(table, Layout.MINIMAL) ;
+        System.out.println("**") ;
+        
 //        TextTableFormatter.output(table, Layout.SINGLE);
 //        TextTableFormatter.output(table, Layout.DOUBLE);
+//        TextTableFormatter.output(table, Layout.DOUBLESINGLE);
     }
 }

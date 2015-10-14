@@ -18,101 +18,154 @@
 
 package org.seaborne.texttable;
 
+/** Layout for a table formatter */
 public class Layout {
+    /** Create a layout, starting from a base layout and give it a ColumnLayoutSet */ 
+    public static Layout create(Layout baseLayout, ColumnLayoutSet colSet) {
+        return new Layout(baseLayout, colSet) ;
+    }
+    
     // Top of box.
-    protected String sTopLeft      = "+";
-    protected String sTopSep       = "-";
-    protected String sTopRight     = "+";
-    protected String sTopLine      = "-";
+    protected String          sTopLeft        = "+";
+    protected String          sTopSep         = "-";
+    protected String          sTopRight       = "+";
+    protected String          sTopLine        = "-";
 
     // The divider from header to body.
-    protected String sDividerLeft  = "+";
-    protected String sDividerSep   = "=";
-    protected String sDividerRight = "+";
-    protected String sDividerLine  = "=";
+    protected String          sDividerLeft    = "+";
+    protected String          sDividerSep     = "=";
+    protected String          sDividerRight   = "+";
+    protected String          sDividerLine    = "=";
 
     // Bottom of box.
-    protected String sBottomLeft   = "+";
-    protected String sBottomSep    = "-";
-    protected String sBottomRight  = "+";
-    protected String sBottomLine   = "-";
+    protected String          sBottomLeft     = "+";
+    protected String          sBottomSep      = "-";
+    protected String          sBottomRight    = "+";
+    protected String          sBottomLine     = "-";
 
     // Text lines
-    protected String sHeaderLeft   = "|";
-    protected String sHeaderSep    = "|";
-    protected String sHeaderRight  = "|";
+    protected String          sHeaderLeft     = "|";
+    protected String          sHeaderSep      = "|";
+    protected String          sHeaderRight    = "|";
 
-    protected String sBodyLeft     = "|";
-    protected String sBodySep      = "|";
-    protected String sBodyRight    = "|";
+    protected String          sBodyLeft       = "|";
+    protected String          sBodySep        = "|";
+    protected String          sBodyRight      = "|";
+
+    protected boolean         bTopBorder      = true;
+    protected boolean         bBottomBorder   = true;
+    protected boolean         bHeaderSeparate = true;
+    protected boolean         bHeaderDivider  = true;
+
+    protected ColumnLayout    defaultColumn   = ColumnLayout.DEFAULT;
+    protected ColumnLayoutSet columnSet       = null;
 
     private Layout() {}
     
-    public String getTopLeft() {
-        return sTopLeft;
+    protected Layout(Layout base, ColumnLayoutSet columnSet) {
+        this(base) ;
+        this.columnSet = columnSet ;
     }
-    public String getTopSep() {
-        return sTopSep;
-    }
-    public String getTopRight() {
-        return sTopRight;
-    }
-    public String getTopLine() {
-        return sTopLine;
-    }
-    public String getDividerLeft() {
-        return sDividerLeft;
-    }
-    public String getDividerSep() {
-        return sDividerSep;
-    }
-    public String getDividerRight() {
-        return sDividerRight;
-    }
-    public String getDividerLine() {
-        return sDividerLine;
-    }
-    public String getBottomLeft() {
-        return sBottomLeft;
-    }
-    public String getBottomSep() {
-        return sBottomSep;
-    }
-    public String getBottomRight() {
-        return sBottomRight;
-    }
-    public String getBottomLine() {
-        return sBottomLine;
-    }
-    public String getHeaderLeft() {
-        return sHeaderLeft;
-    }
-    public String getHeaderSep() {
-        return sHeaderSep;
-    }
-    public String getHeaderRight() {
-        return sHeaderRight;
-    }
-    public String getBodyLeft() {
-        return sBodyLeft;
-    }
-    public String getBodySep() {
-        return sBodySep;
-    }
-    public String getBodyRight() {
-        return sBodyRight;
-    }
+    
+    public ColumnLayoutSet getColumnLayoutSet() { return columnSet ; }
 
-    public static Layout PLAIN = new Layout() ;
-    public static Layout PLAIN2 = new Layout() ;
+    public ColumnLayout getColumn(String name) {
+        if ( name == null || columnSet == null )
+            return defaultColumn ;
+        ColumnLayout c = columnSet.get(name);
+        return c;
+    }
+    
+    protected Layout(Layout base) {
+        this.sTopLeft = base.sTopLeft ;
+        this.sTopSep = base.sTopSep ;
+        this.sTopRight = base.sTopRight ;
+        this.sTopLine = base.sTopLine ;
+
+        // The divider from header to body.
+        this.sDividerLeft = base.sDividerLeft ;
+        this.sDividerSep = base.sDividerSep ;
+        this.sDividerRight = base.sDividerRight ;
+        this.sDividerLine = base.sDividerLine ;
+
+        // Bottom of box.
+        this.sBottomLeft = base.sBottomLeft ;
+        this.sBottomSep = base.sBottomSep ;
+        this.sBottomRight = base.sBottomRight ;
+        this.sBottomLine = base.sBottomLine ;
+
+        // Text lines
+        this.sHeaderLeft = base.sHeaderLeft ;
+        this.sHeaderSep = base.sHeaderSep ;
+        this.sHeaderRight = base.sHeaderRight ;
+
+        this.sBodyLeft = base.sBodyLeft ;
+        this.sBodySep = base.sBodySep ;
+        this.sBodyRight = base.sBodyRight ;
+
+        this.bTopBorder = base.bTopBorder ;
+        this.bBottomBorder = base.bBottomBorder ;
+        this.bHeaderSeparate = base.bHeaderSeparate ;
+        this.bHeaderDivider = base.bHeaderDivider ;
+    }
+    
+    // @formatter:off
+    public String getTopLeft()          { return sTopLeft;  }
+    public String getTopSep()           { return sTopSep;   }
+    public String getTopRight()         { return sTopRight; }
+    public String getTopLine()          { return sTopLine;  }
+
+    public String getDividerLeft()      { return sDividerLeft;  }
+    public String getDividerSep()       { return sDividerSep;   }
+    public String getDividerRight()     { return sDividerRight; }
+    public String getDividerLine()      { return sDividerLine;  }
+    
+    public String getBottomLeft()       { return sBottomLeft;   }
+    public String getBottomSep()        { return sBottomSep;    }
+    public String getBottomRight()      { return sBottomRight;  }
+    public String getBottomLine()       { return sBottomLine;   }
+    
+    public String getHeaderLeft()       { return sHeaderLeft;   }
+    public String getHeaderSep()        { return sHeaderSep;    }
+    public String getHeaderRight()      { return sHeaderRight;  }
+    
+    public String getBodyLeft()         { return sBodyLeft;     }
+    public String getBodySep()          { return sBodySep;      }
+    public String getBodyRight()        { return sBodyRight;    }
+
+    public boolean hasTopBorder()       { return bTopBorder;    }
+    public boolean hasBottomBorder()    { return bBottomBorder; }
+    public boolean hasHeader()          { return bHeaderSeparate ; }
+    public boolean hasHeaderDivider()   { return bHeaderDivider ; }
+    // @formatter:on
+    
+    /** The PLAIN style - default form. */
+    public static Layout PLAIN  = new Layout();
+
+    /** The PLAIN style - default form. */
+    public static Layout PLAIN2  = new Layout();
     static {
-        PLAIN2.sTopLeft      = "/";
-        PLAIN2.sTopRight     = "\\";
-        PLAIN2.sBottomLeft   = "\\";
-        PLAIN2.sBottomRight  = "/";
+        PLAIN2.sTopLeft        = "-";
+        PLAIN2.sTopRight       = "-";
+
+        PLAIN2.sDividerLeft    = "=";
+        PLAIN2.sDividerRight   = "=";
+
+        PLAIN2.sBottomLeft     = "-";
+        PLAIN2.sBottomRight    = "-";
+    }
+    
+    /** The PLAIN style but with angled corners to the box */
+    public static Layout ANGLED = new Layout(PLAIN) ;
+    static {
+        ANGLED.sTopLeft      = "/";
+        ANGLED.sTopRight     = "\\";
+        ANGLED.sBottomLeft   = "\\";
+        ANGLED.sBottomRight  = "/";
     }
 
-    public static Layout MYSQL = new Layout() ;
+    /** The style output my MySQL  */
+    public static Layout MYSQL = new Layout(PLAIN) ;
     static {
         MYSQL.sTopSep = "+" ;
         MYSQL.sBottomSep = "+" ;
@@ -120,9 +173,9 @@ public class Layout {
         MYSQL.sDividerLine = "-" ;
     }
     
-    public static Layout COMPACT = new Layout() ;
+    /** COMPACT - A light style with no borders, just a header/body divider */
+    public static Layout COMPACT = new Layout(PLAIN) ;
     static {
-        // setTop(left, sep, lin, right) ;
         COMPACT.sTopLeft = "" ;
         COMPACT.sTopSep = " " ;
         COMPACT.sTopRight = "" ;
@@ -134,6 +187,7 @@ public class Layout {
         COMPACT.sDividerLeft = "" ;
         COMPACT.sDividerSep = " " ;
         COMPACT.sDividerRight = "" ;
+        COMPACT.sDividerLine = "-" ;
 
         COMPACT.sBodyLeft = "" ;
         COMPACT.sBodySep = " " ;
@@ -142,18 +196,26 @@ public class Layout {
         COMPACT.sBottomLeft = "" ;
         COMPACT.sBottomSep = " " ;
         COMPACT.sBottomRight = "" ;
+        
+        COMPACT.bTopBorder = false ;
+        COMPACT.bBottomBorder = false ;
     }
-
-
-    // Single, "DOS"
-    /*
-    0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
-6                                           ┘   ┐   ┌   └   ┼   
-7       ─           ├   ┤   ┴   ┬   │                            
-     */
-
     
-    // Light single, unicode.
+    /** Minimal - no adornment */
+    public static Layout MINIMAL = new Layout(COMPACT) ;
+    static {
+        MINIMAL.bTopBorder = false ;
+        MINIMAL.bBottomBorder = false ;
+        MINIMAL.bHeaderDivider = false ;
+        MINIMAL.bHeaderSeparate = false ;
+        MINIMAL.defaultColumn = new ColumnLayout(Alignment.LEFT, 0, 1) ;
+    }    
+
+    /** Light single line, unicode style.<br/>
+     * Caution: this assumes the display font is rendered correctly.
+     * Even using the same monospaced font and the same output, it may be
+     * can be misaligned in some display sitautions and not others. 
+     */
     public static Layout SINGLE = new Layout() ;
     static {
         SINGLE.sTopLeft      = "┌";
@@ -161,19 +223,16 @@ public class Layout {
         SINGLE.sTopRight     = "┐";
         SINGLE.sTopLine      = "─";
 
-        // The divider from header to body.
         SINGLE.sDividerLeft  = "├";
         SINGLE.sDividerSep   = "┼";
         SINGLE.sDividerRight = "┤";
         SINGLE.sDividerLine  = "─";
 
-        // Bottom of box.
         SINGLE.sBottomLeft   = "└";
         SINGLE.sBottomSep    = "┴";
         SINGLE.sBottomRight  = "┘";
         SINGLE.sBottomLine   = "─";
 
-        // Text lines
         SINGLE.sHeaderLeft   = "│";
         SINGLE.sHeaderSep    = "│";
         SINGLE.sHeaderRight  = "│";
@@ -183,6 +242,11 @@ public class Layout {
         SINGLE.sBodyRight    = "│";
     }
 
+    /** Double line, unicode style.<br/>
+     * Caution: this assumes the display font is rendered correctly.
+     * Even using the same monospaced font and the same output, it may be
+     * can be misaligned in some display sitautions and not others. 
+     */
     public static Layout DOUBLE = new Layout() ;
     static {
         DOUBLE.sTopLeft      = "╔";
@@ -190,19 +254,16 @@ public class Layout {
         DOUBLE.sTopRight     = "╗";
         DOUBLE.sTopLine      = "═";
 
-        // The divider from header to body.
         DOUBLE.sDividerLeft  = "╠";
         DOUBLE.sDividerSep   = "╬";
         DOUBLE.sDividerRight = "╣";
         DOUBLE.sDividerLine  = "═";
 
-        // Bottom of box.
         DOUBLE.sBottomLeft   = "╚";
         DOUBLE.sBottomSep    = "╩";
         DOUBLE.sBottomRight  = "╝";
         DOUBLE.sBottomLine   = "═";
 
-        // Text lines
         DOUBLE.sHeaderLeft   = "║";
         DOUBLE.sHeaderSep    = "║";
         DOUBLE.sHeaderRight  = "║";
@@ -210,5 +271,32 @@ public class Layout {
         DOUBLE.sBodyLeft     = "║";
         DOUBLE.sBodySep      = "║";
         DOUBLE.sBodyRight    = "║";
+    }
+    
+    /** Doubl elines outside, single lines internally<br/>
+     * Caution: this assumes the display font is rendered correctly.
+     * Even using the same monospaced font and the same output, it may be
+     * can be misaligned in some display sitautions and not others. 
+     */
+    public static Layout DOUBLESINGLE = new Layout(SINGLE) ;
+    static {
+        DOUBLESINGLE.sTopLeft      = "╔";
+        DOUBLESINGLE.sTopSep       = "╤";
+        DOUBLESINGLE.sTopRight     = "╗";
+        DOUBLESINGLE.sTopLine      = "═";
+
+        DOUBLESINGLE.sDividerLeft  = "╟";
+        DOUBLESINGLE.sDividerRight = "╢";
+
+        DOUBLESINGLE.sBottomLeft   = "╚";
+        DOUBLESINGLE.sBottomSep    = "╧";
+        DOUBLESINGLE.sBottomRight  = "╝";
+        DOUBLESINGLE.sBottomLine   = "═";
+        
+        DOUBLESINGLE.sHeaderLeft   = "║";
+        DOUBLESINGLE.sHeaderRight  = "║";
+
+        DOUBLESINGLE.sBodyLeft     = "║";
+        DOUBLESINGLE.sBodyRight    = "║";
     }
 }

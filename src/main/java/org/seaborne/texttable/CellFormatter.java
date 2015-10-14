@@ -18,27 +18,13 @@
 
 package org.seaborne.texttable;
 
-import java.util.ArrayList ;
-import java.util.Collections ;
-import java.util.List ;
-
-public class TextHeader extends TextRow {
-    // Builder.
-    
-    List<Alignment> alignment = new ArrayList<>() ;
-    
-    private TextHeader() {
-        super(Collections.emptyList());
-    }
-    
-    public void add(String headerText, Alignment align) {
-        super.cells.add(headerText) ;
-        alignment.add(align) ;
-    }
-
-    public List<Alignment> getAlignments() {
-        return alignment ;
+/** The process of turning a data cell into presentation form. */  
+public interface CellFormatter {
+    public default String format(int colNumber, int rowNumber, Object object) {
+        String s = "" ;
+        if ( object != null )
+            s = String.valueOf(object) ;
+        //s = s+"["+colNumber+","+rowNumber+"]" ;
+        return s ;
     }
 }
-
-
