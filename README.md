@@ -1,2 +1,2 @@
-Engine for printign text/monospace tables.
+Engine for printing text/monospace tables.
 
