@@ -41,7 +41,7 @@ public class DataTable {
         
         public Builder addColumn(String string) {
             columns.add(string) ;
-            numColumns++ ; 
+            numColumns = Math.max(columns.size(), numColumns) ;
             return this ;
         }
         
@@ -56,6 +56,23 @@ public class DataTable {
             return this ;
         }
 
+        public Builder labelColumns() {
+            int start = columns.size()  ;
+            int N = numColumns ;
+            for ( int i = start ; i < N ; i++ ) {
+                String s = numToColLabel(i) ; // "A", "B", .."AA", "BB"..
+                addColumn(s) ;
+            }
+            return this ;
+        }
+
+        private String numToColLabel(int i) {
+            if ( i <= 26 )
+                return ""+(char)(i+'A')  ;
+            int j = i/26 ;
+            return ""+(char)(j+'A')+(char)(i+'A')  ;
+        }
+        
         public DataTable build() {
             return new DataTable(columns, numColumns, rows) ;
         }

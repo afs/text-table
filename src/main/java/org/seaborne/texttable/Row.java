@@ -29,6 +29,23 @@ public class Row implements Iterable<Object>{
         return new Row(Arrays.asList(data)) ;
     }
     
+    /** Build one row */
+    public static class Builder {
+        private final List<Object> cells = new ArrayList<>() ;
+
+        public Builder add(Object obj) {
+            cells.add(obj);
+            return this;
+        }
+        public Row build() { 
+            return new Row(cells) ;
+        }
+    }
+    
+    public Builder build() {
+        return new Builder() ;
+    }
+    
     protected final List<Object> cells ; 
     
     public Row(List<Object> data) {

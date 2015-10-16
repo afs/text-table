@@ -39,6 +39,9 @@ public class DataTableFormatter {
         output(System.out, table, layout) ;
     }
     
+    /** The format of the row numbers column (if included) */
+    private static ColumnLayout column0 = new ColumnLayout(Alignment.LEFT, 1, 1) ;
+    
     // Not printStream - we want to control the charset. 
     public static void output(OutputStream outputStream, DataTable table, Layout layout) {
         Writer out = /*IO.*/asBufferedUTF8(outputStream) ;
@@ -53,7 +56,7 @@ public class DataTableFormatter {
     
             // This makes strings; trade off of having an in-memory copy vs calling format twice per cell.
             
-            System.out.println("Widths: "+widths) ;
+            //System.out.println("Widths: "+widths) ;
     
             // Phase 2 : output 
             if ( layout.hasTopBorder() )
@@ -85,8 +88,9 @@ public class DataTableFormatter {
     private static void outputBoundaryRow(Writer out, DataTable table, Layout layout, List<Integer> widths, String left, String sep, String line, List<ColumnLayout> columns, String right) throws IOException {
         out.write(left) ;
         boolean firstCol = true ;
+        int index = layout.rowNumbers() ? 0 : 1 ;
         
-        for ( int i = 1 ; i < widths.size() ; i++ ) {
+        for ( int i = index ; i < widths.size() ; i++ ) {
             int width = widths.get(i) ;
             if ( ! firstCol )
                 out.write(sep) ;
@@ -112,6 +116,13 @@ public class DataTableFormatter {
         out.write(left) ;
         boolean firstCol = true ;
         int N = table.getColumns() ;
+        if ( layout.rowNumbers() ) {
+            String s = "" ;
+            if ( rowNumber > 0 )
+                s = Integer.toString(rowNumber) ;
+            outputPadded(out, widths.get(0), s, column0, null) ;
+            firstCol = false ;
+        }
         for ( int i = 1 ; i <= N ; i++ ) {
             if ( ! firstCol )
                 out.write(sep) ;

@@ -28,6 +28,10 @@ public class ColumnLayoutSet {
         ColumnLayout defaultColumn = ColumnLayout.DEFAULT ;
         Map<String, ColumnLayout> columns = new HashMap<>() ;
 
+        public Builder defCol(String string) {
+            return defCol(string, Alignment.RIGHT, 1, 1) ;
+        }
+
         public Builder defCol(String string, Alignment align) {
             return defCol(string, align, 1, 1) ;
         }
@@ -54,6 +58,10 @@ public class ColumnLayoutSet {
         this.defaultColumn = defaultColumn ;
         this.columns = columnList ;
     }
+    
+    public static Builder create() {
+        return new Builder() ;
+    }
 
     public ColumnLayout get(String colname) {
         if ( colname == null )
@@ -63,9 +71,4 @@ public class ColumnLayoutSet {
             col = defaultColumn ;
         return col ; 
     }
-    
-    public static Builder create() {
-        return new Builder() ;
-    }
-
-}
+ }

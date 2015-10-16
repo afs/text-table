@@ -21,54 +21,35 @@ package dev;
 import org.seaborne.texttable.* ;
 
 public class DevTextLayout {
-    // Packages
-    // https://github.com/iNamik/Java-Text-Table-Formatter
-    // http://bethecoder.com/applications/products/ascii-table.html
-    
-    // https://ozh.github.io/ascii-tables/
-    //  Fro description of styles.
-
-    // https://en.wikipedia.org/wiki/Box-drawing_character
     // String.length -> codepoint length
-
-    // BUG: Final column.
-    
     /*
+     * Document
+     * Rename Layout as? "TableFormat"? 
      * Tabs.
      * "github markdown" (no bounding top/bottom)
      * Multiline text?
-     * Align by decimal point.
-     * 
-     * Table actions.
+     * Whole table view first
+     * Align by decimal point -> 
      *
      *  SpreadSheet style
      *      Cols are "", A, B, C
      *      Rows are numbered.
      *   Call formatter once (caching formatter)
+     *  "as spreadsheet" flag to formatter or on layout
+     *     Need stateful layout instance 
      */
     
     public static void main(String ... argv) {
-        /*
-           // Modifies the table settings. 
-           Layout layout =
-             LayoutBuilder.create(table, BaseLayout)
-               .setTablePad(1) 
-               .setTablePadLeft(1)
-               .setTablePadRight(1)
-               .setCol(1, padLeft, padRight)
-               .setCol(col, padLeft, padRight, align)
-               .build() ;
-           TableFormattter(table, layout)    
-        */
         
         // Define data
         DataTable table = DataTable.create()
-            .addColumn("col1") 
-            .addColumn("col2")
-            .addColumn("col3")
+            //.addColumn("col1") 
+            //.addColumn("col2")
+            //.addColumn("col3")
             .addDataRow("column1" , "foo")
             .addDataRow("column2" , 123)
             .addDataRow("column3" , "abcdefghijklmnop", "baz")
+            .labelColumns()
             .build() ;
         
         // Define column formatting. 
@@ -77,15 +58,17 @@ public class DevTextLayout {
             .defCol("col2", Alignment.CENTER)
             .defCol("col3", Alignment.RIGHT)
             .build() ;
-        // Combin into a Layout.
-        Layout layout = Layout.create(Layout.PLAIN, colSet) ;
         
-        System.out.println(table) ;
-        System.out.println() ;
+        // Combine into a Layout.
+        Layout layout = Layout.create(Layout.PLAIN, true) ;
         
-        DataTableFormatter.output(table, layout);
+//        System.out.println(table) ;
+//        System.out.println() ;
+        
+        DataTableFormatter.output(table, layout); 
+        System.exit(0) ;
         DataTableFormatter.output(table, Layout.PLAIN2);
-        
+        DataTableFormatter.output(table, Layout.create(Layout.PLAIN2, true));
         System.exit(0) ;
         System.out.println() ;
         DataTableFormatter.output(table);   // Default layout

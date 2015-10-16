@@ -22,9 +22,19 @@ package org.seaborne.texttable;
 public class Layout {
     /** Create a layout, starting from a base layout and give it a ColumnLayoutSet */ 
     public static Layout create(Layout baseLayout, ColumnLayoutSet colSet) {
-        return new Layout(baseLayout, colSet) ;
+        return new Layout(baseLayout, colSet, false) ;
     }
     
+    /** Create a layout, starting from a base layout and  a flag for row numbers. */
+    public static Layout create(Layout baseLayout, boolean includeRowNumber) {
+        return new Layout(baseLayout, null, includeRowNumber) ;
+    }
+
+    /** Create a layout, starting from a base layout, a ColumnLayoutSet and a flag for row numbers. */ 
+    public static Layout create(Layout baseLayout, ColumnLayoutSet colSet, boolean includeRowNumber) {
+        return new Layout(baseLayout, colSet, includeRowNumber) ;
+    }
+
     // Top of box.
     protected String          sTopLeft        = "+";
     protected String          sTopSep         = "-";
@@ -59,15 +69,18 @@ public class Layout {
 
     protected ColumnLayout    defaultColumn   = ColumnLayout.DEFAULT;
     protected ColumnLayoutSet columnSet       = null;
-
+    protected boolean         addRowNumbers   = false ;
+    
     private Layout() {}
     
-    protected Layout(Layout base, ColumnLayoutSet columnSet) {
+    protected Layout(Layout base, ColumnLayoutSet columnSet, boolean addRowNumbers) {
         this(base) ;
         this.columnSet = columnSet ;
+        this.addRowNumbers = addRowNumbers ;
     }
     
     public ColumnLayoutSet getColumnLayoutSet() { return columnSet ; }
+    public boolean rowNumbers()                 { return addRowNumbers ; }
 
     public ColumnLayout getColumn(String name) {
         if ( name == null || columnSet == null )
@@ -137,6 +150,7 @@ public class Layout {
     public boolean hasBottomBorder()    { return bBottomBorder; }
     public boolean hasHeader()          { return bHeaderSeparate ; }
     public boolean hasHeaderDivider()   { return bHeaderDivider ; }
+    
     // @formatter:on
     
     /** The PLAIN style - default form. */
