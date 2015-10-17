@@ -26,30 +26,36 @@ public class DevTextLayout {
      * Document
      * Rename Layout as? "TableFormat"? 
      * Tabs.
-     * "github markdown" (no bounding top/bottom)
      * Multiline text?
      * Whole table view first
      * Align by decimal point -> 
      *
      *  SpreadSheet style
+     *      Format.asSpreadsheet(Layout)
      *      Cols are "", A, B, C
+     *      Table+layout <- spreadsheet
      *      Rows are numbered.
-     *   Call formatter once (caching formatter)
-     *  "as spreadsheet" flag to formatter or on layout
-     *     Need stateful layout instance 
+     *      Push down columns.
      */
     
+    private static String numToColLabel(int i) {
+        if ( i < 26 )
+            return " "+(char)(i+'A')  ;
+        int j = (i-26)/26 ;
+        int k = i % 26 ;
+        return ""+(char)(j+'A')+""+(char)(k+'A')  ;
+    }
+    
     public static void main(String ... argv) {
-        
         // Define data
         DataTable table = DataTable.create()
-            //.addColumn("col1") 
-            //.addColumn("col2")
-            //.addColumn("col3")
+            .addColumn("col1") 
+            .addColumn("col2")
+            .addColumn("col3")
             .addDataRow("column1" , "foo")
-            .addDataRow("column2" , 123)
-            .addDataRow("column3" , "abcdefghijklmnop", "baz")
-            .labelColumns()
+            .addDataRow("column2" , "abcdefghijklmnop")
+            .addDataRow("column3" , "1 2 3", "baz")
+            //.labelColumns() //**
             .build() ;
         
         // Define column formatting. 
@@ -60,17 +66,20 @@ public class DevTextLayout {
             .build() ;
         
         // Combine into a Layout.
-        Layout layout = Layout.create(Layout.PLAIN, true) ;
+//        Layout layout = Layout.create(Layout.PLAIN, true) ;
+//        DataTableFormatter.output(table, layout); 
+        
+        Layout layout = Layout.create(Layout.PLAIN, colSet) ;
         
 //        System.out.println(table) ;
 //        System.out.println() ;
-        
-        DataTableFormatter.output(table, layout); 
-        System.exit(0) ;
+        DataTableFormatter.output(table, Layout.MARKDOWN);
+        System.exit(0);
+        System.out.println("        ****") ;
         DataTableFormatter.output(table, Layout.PLAIN2);
-        DataTableFormatter.output(table, Layout.create(Layout.PLAIN2, true));
-        System.exit(0) ;
-        System.out.println() ;
+        System.out.println("        ****") ;
+        DataTableFormatter.output(table, Layout.create(Layout.PLAIN2, colSet, true));
+        System.out.println("        ****") ;
         DataTableFormatter.output(table);   // Default layout
         
 //        System.out.println("**") ;
@@ -78,9 +87,9 @@ public class DevTextLayout {
 //        System.out.println("**") ;
 //        TextTableFormatter.output(table, Layout.COMPACT) ;
         
-        System.out.println("**") ;
+        System.out.println("        ****") ;
         DataTableFormatter.output(table, Layout.MINIMAL) ;
-        System.out.println("**") ;
+        System.out.println("        ****") ;
         
 //        TextTableFormatter.output(table, Layout.SINGLE);
 //        TextTableFormatter.output(table, Layout.DOUBLE);

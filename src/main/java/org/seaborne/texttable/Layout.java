@@ -120,6 +120,10 @@ public class Layout {
         this.bBottomBorder = base.bBottomBorder ;
         this.bHeaderSeparate = base.bHeaderSeparate ;
         this.bHeaderDivider = base.bHeaderDivider ;
+        
+        this.defaultColumn = base.defaultColumn ;
+        this.columnSet = base.columnSet ;
+        this.addRowNumbers = base.addRowNumbers ;
     }
     
     // @formatter:off
@@ -223,6 +227,21 @@ public class Layout {
         MINIMAL.bHeaderDivider = false ;
         MINIMAL.bHeaderSeparate = false ;
         MINIMAL.defaultColumn = new ColumnLayout(Alignment.LEFT, 0, 1) ;
+    }    
+
+    /** Markdown, with outer border.
+     * This isn't perfect - alignment in markdown is via the header divider - but it
+     * does at least produce a basic template to further refine.
+     */ 
+    public static Layout MARKDOWN = new Layout(PLAIN) ;
+    static {
+        MARKDOWN.bTopBorder = false ;
+        MARKDOWN.bBottomBorder = false ;
+        MARKDOWN.sHeaderSep = "|" ;
+        MARKDOWN.sDividerLeft = "|" ;
+        MARKDOWN.sDividerSep = "|" ;
+        MARKDOWN.sDividerLine = "-" ;
+        MARKDOWN.sDividerRight = "|" ;
     }    
 
     /** Light single line, unicode style.<br/>

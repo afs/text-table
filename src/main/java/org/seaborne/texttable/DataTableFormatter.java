@@ -40,7 +40,7 @@ public class DataTableFormatter {
     }
     
     /** The format of the row numbers column (if included) */
-    private static ColumnLayout column0 = new ColumnLayout(Alignment.LEFT, 1, 1) ;
+    private static ColumnLayout column0 = new ColumnLayout(Alignment.RIGHT, 1, 1) ;
     
     // Not printStream - we want to control the charset. 
     public static void output(OutputStream outputStream, DataTable table, Layout layout) {
@@ -117,9 +117,8 @@ public class DataTableFormatter {
         boolean firstCol = true ;
         int N = table.getColumns() ;
         if ( layout.rowNumbers() ) {
-            String s = "" ;
-            if ( rowNumber > 0 )
-                s = Integer.toString(rowNumber) ;
+            String s = ( rowNumber > 0 ) ? Integer.toString(rowNumber) : "" ;
+            // Fixed header for row numbers.    : "#"
             outputPadded(out, widths.get(0), s, column0, null) ;
             firstCol = false ;
         }

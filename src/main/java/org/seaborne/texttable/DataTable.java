@@ -24,8 +24,8 @@ import java.util.List ;
 /** A text table is a 2D array with a distinguished header row.
  *  Columns are number from 1 to N.
  *  Rows are number from 1 to N.
- *  The header row is row 0.
- *  The row number is column 0.
+ *  The header row can be accessed as row 0.
+ *  and the row number as column 0.
  */
 public class DataTable {
 
@@ -56,21 +56,29 @@ public class DataTable {
             return this ;
         }
 
+        /** Add spreadsheet style column names: A, B,... AA, AB.
+         * Existing column names are preserved.
+         * Only columns upto the current maximum defined via data
+         * so far as added.  
+         */
         public Builder labelColumns() {
             int start = columns.size()  ;
             int N = numColumns ;
             for ( int i = start ; i < N ; i++ ) {
-                String s = numToColLabel(i) ; // "A", "B", .."AA", "BB"..
+                String s = numToColLabel(i) ;
                 addColumn(s) ;
             }
             return this ;
         }
 
+        // 0->" A", 1->" B", 25->" Z", 26->"AA", 27->AB, 51->AZ, 52->BA, ...
         private String numToColLabel(int i) {
-            if ( i <= 26 )
-                return ""+(char)(i+'A')  ;
-            int j = i/26 ;
-            return ""+(char)(j+'A')+(char)(i+'A')  ;
+            if ( i < 26 )
+                // space
+                return " "+(char)(i+'A')  ;
+            int j = (i-26)/26 ;
+            int k = i % 26 ;
+            return ""+(char)(j+'A')+""+(char)(k+'A')  ;
         }
         
         public DataTable build() {
