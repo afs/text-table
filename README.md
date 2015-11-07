@@ -1,10 +1,6 @@
-Engine for printing text/monospace tables.
-
-
+## An engine for printing text/monospace tables.
 
 Examples: see package [org.seaborne.texttable.examples](https://github.com/afs/text-table/tree/master/src/main/java/texttable/examples).
-
-
 
 <hr/>
 
@@ -15,7 +11,7 @@ output and same display font.
 
 This is not a bug in the text table production.
 
-Example (same font):
-Looks right: Gnome Terminal
-Looks wrong: Emacs shell
+Example (same font, Inconsolata Medium 10pt):
+* Looks right: Gnome Terminal
+* Looks wrong: Emacs shell
 
