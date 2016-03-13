@@ -29,6 +29,8 @@ public class Row implements Iterable<Object>{
         return new Row(Arrays.asList(data)) ;
     }
     
+    public static Builder create() { return new Builder() ; }
+    
     /** Build one row */
     public static class Builder {
         private final List<Object> cells = new ArrayList<>() ;
@@ -40,10 +42,6 @@ public class Row implements Iterable<Object>{
         public Row build() { 
             return new Row(cells) ;
         }
-    }
-    
-    public Builder build() {
-        return new Builder() ;
     }
     
     protected final List<Object> cells ; 
