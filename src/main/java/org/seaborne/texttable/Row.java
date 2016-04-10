@@ -26,7 +26,8 @@ import java.util.List ;
 /** A row of data items - numbered from one */ 
 public class Row implements Iterable<Object>{
     public static Row row(Object[] data) {
-        return new Row(Arrays.asList(data)) ;
+        List<Object> x = Arrays.asList(data) ;
+        return new Row(x) ;
     }
     
     public static Builder create() { return new Builder() ; }

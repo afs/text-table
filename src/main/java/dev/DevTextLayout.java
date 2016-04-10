@@ -21,9 +21,10 @@ package dev;
 import org.seaborne.texttable.* ;
 
 public class DevTextLayout {
-    // String.length -> codepoint length
     /*
      * Document
+     * Should DataTable have a bool for "header or not?"
+     * 
      * Rename Layout as? "TableFormat"? 
      * Tabs.
      * Multiline text?

@@ -91,9 +91,7 @@ public class DataTable {
     private int numColumns = 0 ;
     private List<Row> rows;
 
-    private DataTable(List<String> columns, 
-                      int numColumns,
-                      List<Row> rows) {
+    private DataTable(List<String> columns, int numColumns, List<Row> rows) {
         this.columnNames = new ArrayList<>(columns) ;
         this.header = makeHeaderRow(columns) ;
         this.numColumns = numColumns ;
@@ -125,7 +123,6 @@ public class DataTable {
             return header.get(colNum) ;
         }
         Row row = rows.get(rowNum-1) ;
-        
         return row.get(colNum) ;
     }
     
@@ -165,7 +162,7 @@ public class DataTable {
 
     public void execRow(int rowNum, Action action) {
         for ( int j = 1 ; j <= getColumns() ; j++ ) {
-            Object data = cell(rowNum, j) ;
+            Object data = cell(j, rowNum) ;
             action.action(j, rowNum, data) ;
         }
     }

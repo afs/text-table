@@ -52,31 +52,32 @@ public class DataTableFormatter {
             // Dummy. Later, row number.
             int x = table.getRows() ;
             widths.add(numWidth(x)) ;
-            table.exec((c,r,data) -> width(table, layout, widths, r)) ;
-    
+            table.exec((c,r,data) -> {
+                width(table, layout, widths, r) ; 
+            }) ;
             // This makes strings; trade off of having an in-memory copy vs calling format twice per cell.
-            
-            //System.out.println("Widths: "+widths) ;
-    
             // Phase 2 : output 
             if ( layout.hasTopBorder() )
                 outputBoundaryRow(out, table, layout, widths, layout.getTopLeft(), layout.getTopSep(), layout.getTopLine(), null, layout.getTopRight()) ;
             
-            // Header as header or body style.
             if ( layout.hasHeader() ) {
-                outputHeaderRow(out, table, layout, widths, 
-                                layout.getHeaderLeft(), layout.getHeaderSep(), layout.getHeaderRight()) ;
+                // Header as header or body style.
+                if ( layout.hasHeaderSep() ) {
+                    outputHeaderRow(out, table, layout, widths, 
+                                    layout.getHeaderLeft(), layout.getHeaderSep(), layout.getHeaderRight()) ;
+                }
+                else
+                    outputBodyRow(out, table, layout, widths, 0, 
+                                  layout.getHeaderLeft(), layout.getHeaderSep(), layout.getHeaderRight()) ;
+        
+                if ( layout.hasHeaderDivider() )
+                    outputBoundaryRow(out, table, layout, widths, layout.getDividerLeft(), layout.getDividerSep(), layout.getDividerLine() , null, layout.getDividerRight()) ;
             }
-            else
-                outputBodyRow(out, table, layout, widths, 0, 
-                              layout.getHeaderLeft(), layout.getHeaderSep(), layout.getHeaderRight()) ;
-    
-            if ( layout.hasHeaderDivider() )
-                outputBoundaryRow(out, table, layout, widths, layout.getDividerLeft(), layout.getDividerSep(), layout.getDividerLine() , null, layout.getDividerRight()) ;
-    
+            
             for (int rowNum = 1 ; rowNum <= table.getRows() ; rowNum++ )
                 outputBodyRow(out, table, layout, widths, rowNum, 
                               layout.getBodyLeft(), layout.getBodySep(), layout.getBodyRight()) ;
+            
             if ( layout.hasBottomBorder() )
                 outputBoundaryRow(out, table, layout, widths, layout.getBottomLeft(), layout.getBottomSep() , layout.getBottomLine(), null, layout.getBottomRight()) ;
             out.flush() ;

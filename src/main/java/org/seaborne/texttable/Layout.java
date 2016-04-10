@@ -35,6 +35,9 @@ public class Layout {
         return new Layout(baseLayout, colSet, includeRowNumber) ;
     }
 
+    // general
+    protected boolean         bHeader         = true ;
+    
     // Top of box.
     protected String          sTopLeft        = "+";
     protected String          sTopSep         = "-";
@@ -152,15 +155,16 @@ public class Layout {
 
     public boolean hasTopBorder()       { return bTopBorder;    }
     public boolean hasBottomBorder()    { return bBottomBorder; }
-    public boolean hasHeader()          { return bHeaderSeparate ; }
+    public boolean hasHeaderSep()       { return bHeaderSeparate ; }
     public boolean hasHeaderDivider()   { return bHeaderDivider ; }
     
+    public boolean hasHeader()          { return bHeader;      }
     // @formatter:on
     
     /** The PLAIN style - default form. */
     public static Layout PLAIN  = new Layout();
 
-    /** The PLAIN style - default form. */
+    /** The PLAIN style - variation. */
     public static Layout PLAIN2  = new Layout();
     static {
         PLAIN2.sTopLeft        = "-";
@@ -173,6 +177,11 @@ public class Layout {
         PLAIN2.sBottomRight    = "-";
     }
     
+    public static Layout X = new Layout(PLAIN) ;
+    static {
+        X.bHeader = false ;
+    }
+    
     /** The PLAIN style but with angled corners to the box */
     public static Layout ANGLED = new Layout(PLAIN) ;
     static {
@@ -182,7 +191,7 @@ public class Layout {
         ANGLED.sBottomRight  = "/";
     }
 
-    /** The style output my MySQL  */
+    /** The style output by MySQL  */
     public static Layout MYSQL = new Layout(PLAIN) ;
     static {
         MYSQL.sTopSep = "+" ;
