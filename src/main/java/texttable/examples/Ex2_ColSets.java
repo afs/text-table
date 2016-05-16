@@ -44,9 +44,9 @@ public class Ex2_ColSets {
         print("Plain, with ColSet", layout, table) ;
         print("Plain, colset, numbered", Layout.create(Layout.PLAIN, colSet, true), table) ;
 
-        print("MYSQL, numbered", Layout.create(Layout.MYSQL, true), table) ;
+        print("MYSQL, numbered", Layout.create(Layout.MYSQL, colSet, true), table) ;
 
-        print("Minimal, numbered", Layout.create(Layout.MINIMAL, true), table) ;
+        print("Minimal, numbered", Layout.create(Layout.MINIMAL, colSet, true), table) ;
     }
     
     private static boolean First = true ; 
