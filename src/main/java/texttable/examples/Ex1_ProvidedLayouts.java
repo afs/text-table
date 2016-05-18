@@ -32,22 +32,11 @@ public class Ex1_ProvidedLayouts {
             .addDataRow("column3" , "1 2 3", "baz")
             .build() ;
         
-//        // Define column formatting. 
-//        ColumnLayoutSet colSet = ColumnLayoutSet.create()
-//            .defCol("col1", Alignment.LEFT)
-//            .defCol("col2", Alignment.CENTER)
-//            .defCol("col3", Alignment.RIGHT)
-//            .build() ;
-        
-  //      Layout layout = Layout.create(Layout.PLAIN, colSet) ;
-
         print("Plain", Layout.PLAIN, table) ;
         
         print("Markdown", Layout.MARKDOWN, table) ;
         
         print("Plain2", Layout.PLAIN2, table) ;
-        
-//        print("Plain2, colset, numbered", Layout.create(Layout.PLAIN2, colSet, true), table) ;
 
         print("MYSQL", Layout.MYSQL, table) ;
 
