@@ -115,22 +115,6 @@
         </executions>
       </plugin>
 
-      <!-- testing - always sign -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>1.6</version>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-            </execution>
-        </executions>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
@@ -142,7 +126,7 @@
 
   <profiles>
     <profile>
-      <id>releaseX</id>
+      <id>release</id>
       <build>
         <plugins>
 
@@ -160,22 +144,21 @@
             </executions>
           </plugin>
 
-          <!-- LATER
-               <plugin>
-               <groupId>org.apache.maven.plugins</groupId>
-               <artifactId>maven-gpg-plugin</artifactId>
-               <version>1.6</version>
-               <executions>
-               <execution>
-               <id>sign-artifacts</id>
-               <phase>verify</phase>
-               <goals>
-               <goal>sign</goal>
-               </goals>
-               </execution>
-               </executions>
-               </plugin>
-          -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
         </plugins>
       </build>
     </profile>
@@ -194,11 +177,12 @@
     </repository>
   </distributionManagement>
 
+  <!--
   <repositories>
     <repository>
       <id>sonatype.public</id>
       <name>Sonatype Snapshots Repository</name>
-      <url>https://oss.sonatype.org/content/groups/public/</url>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
       <releases>
         <enabled>false</enabled>
       </releases>
@@ -207,5 +191,6 @@
       </snapshots>
     </repository>
   </repositories>
+  -->
 
 </project>
