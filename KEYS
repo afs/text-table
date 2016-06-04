@@ -1,10 +1,8 @@
-** Andy Seaborne (Code signing key)
-
-pub   4096R/CC729410 2016-05-17
-uid                  Andy Seaborne (Code Signing Key) <andy@seaborne.org>
-sig 3        CC729410 2016-05-17  Andy Seaborne (Code Signing Key) <andy@seaborne.org>
-sub   4096R/06CE98B2 2016-05-17
-sig          CC729410 2016-05-17  Andy Seaborne (Code Signing Key) <andy@seaborne.org>
+pub   4096R/A6208D33CC729410 2016-05-17
+uid                          Andy Seaborne (Code Signing Key) <andy@seaborne.org>
+sig 3        A6208D33CC729410 2016-05-17  Andy Seaborne (Code Signing Key) <andy@seaborne.org>
+sub   4096R/8DBE25A606CE98B2 2016-05-17
+sig          A6208D33CC729410 2016-05-17  Andy Seaborne (Code Signing Key) <andy@seaborne.org>
 
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1
