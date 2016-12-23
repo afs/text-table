@@ -22,7 +22,7 @@
 
   <groupId>org.seaborne</groupId>
   <artifactId>text-table</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>text-formatter</name>
@@ -40,7 +40,7 @@
     <url>https://github.com/afs/text-table</url>
     <connection>scm:git:https://github.com/afs/text-table.git</connection>
     <developerConnection>scm:git:git@github.com:afs/text-table.git</developerConnection>
-    <tag>text-table-0.0.2</tag>
+    <tag>HEAD</tag>
   </scm>
   
   <developers>
