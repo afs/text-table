@@ -26,7 +26,7 @@
   <packaging>jar</packaging>
 
   <name>text-formatter</name>
-  <description>Formater to produce text (console) tables</description>
+  <description>Formatter to produce text (console) tables</description>
   <url>https://github.com/afs/text-table</url>
   
   <licenses>
