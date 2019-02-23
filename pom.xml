@@ -103,11 +103,7 @@
         <version>3.8.0</version>
         <configuration>
           <encoding>UTF-8</encoding>
-          <debug>true</debug>
-          <debuglevel>source,lines,vars</debuglevel>
-          <optimize>true</optimize>
-          <source>${jdk.version}</source>
-          <target>${jdk.version}</target>
+          <release>11</release>
         </configuration>
       </plugin>
 
